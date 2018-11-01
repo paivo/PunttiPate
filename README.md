@@ -1,1 +1,2 @@
 # PunttiPate
+Ensin käyttäjän on rekisteröidyttävä luomalla tunnuksen ja salasanan. Sivulla voi lisätä itselleen penkissä, kyykyssä ja maastavedossa tehtyjä yhden toiston tuloksia. Sivulla voi myös tarkastella kaikkien aikojen parhaita tuloksia, sekä kuukauden parhaita tuloksia. Tulokseen täytyy merkitä päivämäärä ja paikka jolloin/jossa se on tehty. Omia tuloksia voi myös poistaa ja muutenkin päivittää. 
