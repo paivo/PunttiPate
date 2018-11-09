@@ -1,5 +1,5 @@
-(venv) ~/todosovellus$ pip freeze | grep -v pkg-resources > requirements.txt
-(venv) ~/todosovellus$ cat requirements.txt
+(venv) ~/PunttiPate$ pip freeze | grep -v pkg-resources > requirements.txt
+(venv) ~/PunttiPate$ cat requirements.txt
 click==6.7
 Flask==0.12.2
 Flask-SQLAlchemy==2.3.2
@@ -9,4 +9,4 @@ Jinja2==2.10
 MarkupSafe==1.0
 SQLAlchemy==1.2.5
 Werkzeug==0.14.1
-(venv) ~/todosovellus$ 
+(venv) ~/PunttiPate$ 
