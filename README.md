@@ -4,3 +4,5 @@ Sivulla voi lisätä itselleen penkissä, kyykyssä ja maastavedossa tehtyjä yh
 [PunttiPate Herokussa](https://punttipate.herokuapp.com/)
 
 [Tietokantakaavio](https://github.com/paivo/PunttiPate/blob/master/documentation/tietokantataulu.odt)
+
+[Käyttötapaukset](https://github.com/paivo/PunttiPate/blob/master/documentation/userstory.txt)
