@@ -1,9 +1,9 @@
 from flask import render_template, request, redirect, url_for
 from flask_login import login_user, logout_user
   
-from application import app
+from application import app, db
 from application.auth.models import User
-from application.auth.forms import LoginForm
+from application.auth.forms import LoginForm, SignupForm
 
 @app.route("/auth/login", methods = ["GET", "POST"])
 def auth_login():
@@ -27,3 +27,23 @@ def auth_logout():
     logout_user()
     return redirect(url_for("index"))     
 
+@app.route("/auth/signup", methods = ["GET", "POST"])
+def auth_signup():
+    if request.method == "GET":
+        return render_template("auth/signupform.html", form = SignupForm())
+
+    form = SignupForm(request.form)
+    # mahdolliset validoinnit
+
+    possibleusername = User.query.filter_by(username=form.username.data).first()
+    if possibleusername:
+        return render_template("auth/signupform.html", form = form,
+                                error = "Username is already taken.")
+
+    user = User(form.name.data)
+    user.username=form.username.data
+    user.password=form.password.data
+
+    db.session().add(user)
+    db.session().commit()
+    return redirect(url_for("index"))   
