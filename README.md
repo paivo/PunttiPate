@@ -8,6 +8,6 @@ Kirjautuminen:
 Käyttäjänimi: hello
 Salasana: world
 
-[Tietokantakaavio](https://github.com/paivo/PunttiPate/blob/master/documentation/tietokantataulu.odt)
+[Tietokantakaavio](https://github.com/paivo/PunttiPate/blob/master/documentation/tietokantakaavio.png)
 
-[Käyttötapaukset](https://github.com/paivo/PunttiPate/blob/master/documentation/userstory.txt)
+[Käyttötapaukset](https://github.com/paivo/PunttiPate/blob/master/documentation/userstory.md)
