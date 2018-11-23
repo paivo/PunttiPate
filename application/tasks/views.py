@@ -10,14 +10,14 @@ def tasks_index():
     return render_template("tasks/list.html", tasks = Task.query.all())
 
   
-@app.route("/tasks/new/")
-@login_required
+@app.route("/tasks/new/", methods=["GET"])
+@login_required(role="ANY")
 def tasks_form():
     return render_template("tasks/new.html", form = TaskForm())
 
   
 @app.route("/tasks/<task_id>/", methods=["POST"])
-@login_required
+@login_required(role="ANY")
 def tasks_set_done(task_id):
 
     t = Task.query.get(task_id)
@@ -32,7 +32,7 @@ def tasks_set_done(task_id):
 
   
 @app.route("/tasks/", methods=["POST"])
-@login_required(role="ADMIN")
+@login_required(role="ANY")
 def tasks_create():
     form = TaskForm(request.form)
   

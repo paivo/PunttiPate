@@ -29,7 +29,7 @@ class User(Base):
         return True
 
     def roles(self):
-        return ["ADMIN"]
+        return ["ANY"]
 
 
     @staticmethod
