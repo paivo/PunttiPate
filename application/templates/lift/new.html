@@ -1,0 +1,39 @@
+  {% extends "layout.html" %}
+
+  {% block body %}
+  <form method="POST" action="{{ url_for('bench_create') }}">
+    <table>
+      <tr>
+	<td>
+	  {{ form.weight.label }}
+	</td>
+	<td>
+	  {{ form.weight }}
+	</td>
+	<td>
+	  <ul>
+	    {% for error in form.name.errors %}
+	    <li>{{ error }}</li>
+	    {% endfor %}
+	  </ul>
+	</td>
+      </tr>
+      <tr>
+	<td>
+	  {{ form.date.label }}
+	</td>
+	<td>
+	  {{ form.date }}
+	</td>
+	<td>
+	</td>
+      </tr>
+      <tr>
+	<td colspan="3">
+	  <input type="submit" value="Add a new lift!"/>
+	</td>
+      </tr>
+    </table>
+  </form>
+
+  {% endblock %}

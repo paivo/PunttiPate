@@ -5,6 +5,7 @@ from application import app, db, login_manager, login_required
 from application.tasks.models import Task
 from application.tasks.forms import TaskForm
 
+
 @app.route("/tasks/", methods=["GET"])
 def tasks_index():
     return render_template("tasks/list.html", tasks = Task.query.all())
@@ -39,7 +40,6 @@ def tasks_create():
     if not form.validate():
         return render_template("tasks/new.html", form = form)
 
-  
     t = Task(form.name.data)
     t.done = form.done.data
     t.account_id = current_user.id
@@ -47,4 +47,18 @@ def tasks_create():
     db.session().add(t)
     db.session().commit()
   
+    return redirect(url_for("tasks_index"))
+
+
+@app.route("/tasks/delete/<task_id>/", methods=["POST"])
+@login_required(role="ANY")
+def tasks_delete(task_id):
+    t = Task.query.get(task_id)
+    if t.account_id != current_user.id:
+        # tee jotain, esim.
+        return login_manager.unauthorized()
+
+    db.session().delete(t)
+    db.session().commit()
+
     return redirect(url_for("tasks_index"))

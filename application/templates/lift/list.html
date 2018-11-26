@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block body %}
+  <table>
+
+    <tr>
+      <th>Weight</th>
+      <th>Date</th>
+      <th></th>
+    </tr>
+    {% for bench in benches %}
+    <tr>
+      <td>{{ bench.weight }}</td>
+      <td>{{ bench.date_lifted }}</td>
+      <td>
+    <form method="POST" action="{{ url_for('bench_delete', bench_id=bench.id) }}">
+	  <input type="submit" value="Delete"/>
+	</form>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+{% endblock %}
