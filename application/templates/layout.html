@@ -20,10 +20,13 @@
               <a class="nav-link" href="{{ url_for('bench_index') }}">My Performances</a>
             </li>
             <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('bench_form') }}">Add a new Lift</a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" href="{{ url_for('tasks_index') }}">Tasks</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('tasks_form') }}">Add a Performance</a>
+              <a class="nav-link" href="{{ url_for('tasks_form') }}">Add a Task</a>
             </li>
           </ul>
         {% endif %}

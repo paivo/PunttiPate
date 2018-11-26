@@ -7,7 +7,6 @@ from application.lift.forms import LiftForm
 
 
 @app.route("/bench/", methods=["GET"])
-@login_required(role="ANY")
 def bench_index():
     return render_template("lift/list.html", benches=Bench.query.all())
 
@@ -15,7 +14,7 @@ def bench_index():
 @app.route("/bench/new/", methods=["GET"])
 @login_required(role="ANY")
 def bench_form():
-    return render_template("bench/new.html", form=LiftForm())
+    return render_template("lift/new.html", form=LiftForm())
 
 
 @app.route("/bench/delete/<bench_id>/", methods=["POST"])
@@ -37,10 +36,9 @@ def bench_create():
     form = LiftForm(request.form)
 
     if not form.validate():
-        return render_template("bench/new.html", form=form)
+        return render_template("lift/new.html", form=form)
 
-    t = Bench(form.name.data)
-    t.done = form.done.data
+    t = Bench(form.weight.data, form.date.data)
     t.account_id = current_user.id
 
     db.session().add(t)

@@ -17,4 +17,4 @@ class Lift(db.Model):
     date_created = db.Column(db.DateTime, default=db.func.current_timestamp())
     date_modified = db.Column(db.DateTime, default=db.func.current_timestamp(), onupdate=db.func.current_timestamp())
     weight = db.Column(db.Integer, nullable=False)
-    date_lifted = db.Column(db.DateTime, nullable=False)
+    date = db.Column(db.Date, nullable=False)

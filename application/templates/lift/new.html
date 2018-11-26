@@ -12,7 +12,7 @@
 	</td>
 	<td>
 	  <ul>
-	    {% for error in form.name.errors %}
+	    {% for error in form.weight.errors %}
 	    <li>{{ error }}</li>
 	    {% endfor %}
 	  </ul>
@@ -24,6 +24,13 @@
 	</td>
 	<td>
 	  {{ form.date }}
+	</td>
+	<td>
+	  <ul>
+	    {% for error in form.date.errors %}
+	    <li>Insert date in form: dd.mm.yyyy</li>
+	    {% endfor %}
+	  </ul>
 	</td>
 	<td>
 	</td>

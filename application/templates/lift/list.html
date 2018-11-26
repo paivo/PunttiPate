@@ -11,12 +11,12 @@
     {% for bench in benches %}
     <tr>
       <td>{{ bench.weight }}</td>
-      <td>{{ bench.date_lifted }}</td>
-      <td>
+      <td>{{ bench.date }}</td>
+    <td>
     <form method="POST" action="{{ url_for('bench_delete', bench_id=bench.id) }}">
-	  <input type="submit" value="Delete"/>
-	</form>
-      </td>
+	    <input type="submit" value="Delete"/>
+	  </form>
+    </td>
     </tr>
     {% endfor %}
   </table>
