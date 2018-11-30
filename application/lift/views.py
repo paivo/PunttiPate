@@ -8,7 +8,13 @@ from application.lift.forms import LiftForm
 
 @app.route("/bench/", methods=["GET"])
 def bench_index():
+
     return render_template("lift/list.html", benches=Bench.query.all())
+
+@app.route("/bench/add/", methods=["GET"])
+def bench_add():
+    
+    return render_template("lift/add.html")
 
 
 @app.route("/bench/new/", methods=["GET"])
