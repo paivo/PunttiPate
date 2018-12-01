@@ -38,7 +38,7 @@ class Squat(Lift):
     def find_lifts():
         stmt = text("SELECT Squat.weight, Squat.date FROM Squat"
                     " WHERE Squat.account_id = :id"
-                    " GROUP BY Squat.date").params(id=current_user.id)
+                    " ORDER BY Squat.weight DESC").params(id=current_user.id)
         res = db.engine.execute(stmt)
 
         response = []
@@ -60,7 +60,7 @@ class Dead(Lift):
     def find_lifts():
         stmt = text("SELECT Dead.weight, Dead.date FROM Dead"
                     " WHERE Dead.account_id = :id"
-                    " GROUP BY Dead.date").params(id=current_user.id)
+                    " ORDER BY Dead.weight DESC").params(id=current_user.id)
         res = db.engine.execute(stmt)
 
         response = []
