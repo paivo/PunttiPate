@@ -1,5 +1,7 @@
 from application import db
 from application.models import Lift
+from sqlalchemy.sql import text
+from flask_login import current_user
 
 
 class Bench(Lift):
@@ -10,6 +12,19 @@ class Bench(Lift):
         self.weight = weight
         self.date = date
 
+    @staticmethod
+    def find_lifts():
+        stmt = text("SELECT Bench.weight, Bench.date FROM Bench"
+                    " WHERE Bench.account_id = :id"
+                    " ORDER BY Bench.weight DESC").params(id=current_user.id)
+        res = db.engine.execute(stmt)
+
+        response = []
+        for row in res:
+            response.append({"weight": row[0], "date": row[1]})
+
+        return response
+
 
 class Squat(Lift):
 
@@ -19,6 +34,19 @@ class Squat(Lift):
         self.weight = weight
         self.date = date
 
+    @staticmethod
+    def find_lifts():
+        stmt = text("SELECT Squat.weight, Squat.date FROM Squat"
+                    " WHERE Squat.account_id = :id"
+                    " GROUP BY Squat.date").params(id=current_user.id)
+        res = db.engine.execute(stmt)
+
+        response = []
+        for row in res:
+            response.append({"weight": row[0], "date": row[1]})
+
+        return response
+
 
 class Dead(Lift):
 
@@ -27,3 +55,16 @@ class Dead(Lift):
     def __init__(self, weight, date):
         self.weight = weight
         self.date = date
+
+    @staticmethod
+    def find_lifts():
+        stmt = text("SELECT Dead.weight, Dead.date FROM Dead"
+                    " WHERE Dead.account_id = :id"
+                    " GROUP BY Dead.date").params(id=current_user.id)
+        res = db.engine.execute(stmt)
+
+        response = []
+        for row in res:
+            response.append({"weight": row[0], "date": row[1]})
+
+        return response

@@ -32,7 +32,6 @@ class User(Base):
     def roles(self):
         return ["ANY"]
 
-
     @staticmethod
     def find_users_with_no_tasks(done='1'):
         stmt = text("SELECT Account.id, Account.name FROM Account"

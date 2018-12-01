@@ -1,22 +1,30 @@
   {% extends "layout.html" %}
 
 	{% block body %}
-	<h2>
-		Add a new Max
+	<br>
+  	<h2>
+		Add a new Max Lift
 	</h2>
 	<br>
-	<br>
-	<br>
-	<h5>
-		Benchpress
+  	<h5>
+		Select one:
 	</h5>
+
   <form method="POST" action="{{ url_for('bench_create') }}">
     <table>
-      <tr>
-	<td>
+		{% for lift in form.lifts %}
+    		<tr>
+        		<td>{{ lift }}</td>
+				<td>{{ lift.label }}</td>
+    		</tr>
+		{% endfor %}
+		{% for error in form.lifts.errors %}
+			<li>{{ error }}</li>
+		{% endfor %}
+	<td><br>
 	  {{ form.weight.label }}
 	</td>
-	<td>
+	<td><br>
 	  {{ form.weight }}
 	</td>
 	<td>
@@ -46,9 +54,9 @@
       </tr>
       <tr>
 				<td></td>
-	<td>
+	<td><br>
 		
-		<input type="submit" value="Add!"/>
+		<input type="submit" value="Add"/>
 	</td>
       </tr>
     </table>

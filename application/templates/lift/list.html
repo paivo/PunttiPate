@@ -1,10 +1,19 @@
 {% extends "layout.html" %}
 
 {% block body %}
+  <h2>
+    My Lifts
+  </h2>
+    <p>
+     Delete with X
+    </p>
+  <br>
   <table>
-
+    <h4>
+        Benchpress
+    </h4>
     <tr>
-      <th>Weight</th>
+      <th>Weight&nbsp; &nbsp;</th>
       <th>Date</th>
       <th></th>
     </tr>
@@ -13,11 +22,58 @@
       <td>{{ bench.weight }}</td>
       <td>{{ bench.date }}</td>
     <td>
-    <form method="POST" action="{{ url_for('bench_delete', bench_id=bench.id) }}">
-	    <input type="submit" value="Delete"/>
+    <form method="POST" action="{{ url_for('bench_delete', id=bench.id, lift_type='bench') }}">
+	    <input type="submit" value="X"/>
 	  </form>
     </td>
     </tr>
     {% endfor %}
-  </table>
+    </table>
+
+    <br>
+    <table>
+    <h4>
+        Squat
+    </h4>
+    <tr>
+      <th>Weight&nbsp; &nbsp;</th>
+      <th>Date</th>
+      <th></th>
+    </tr>
+    {% for squat in squats %}
+    <tr>
+      <td>{{ squat.weight }}</td>
+      <td>{{ squat.date }}</td>
+    <td>
+    <form method="POST" action="{{ url_for('bench_delete', id=squat.id, lift_type='squat') }}">
+	    <input type="submit" value="X"/>
+	  </form>
+    </td>
+    </tr>
+    {% endfor %}
+    </table>
+
+    <br>
+    <table>
+    <h4>
+        Deadlift
+    </h4>
+    <tr>
+      <th>Weight&nbsp; &nbsp;</th>
+      <th>Date</th>
+      <th></th>
+    </tr>
+    {% for dead in deads %}
+    <tr>
+      <td>{{ dead.weight }}</td>
+      <td>{{ dead.date }}</td>
+    <td>
+    <form method="POST" action="{{ url_for('bench_delete', id=dead.id, lift_type='dead') }}">
+	    <input type="submit" value="X"/>
+	  </form>
+    </td>
+    </tr>
+    {% endfor %}
+    </table>
+
 {% endblock %}

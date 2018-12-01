@@ -13,25 +13,21 @@
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
 	</button>
+
 	<div class="collapse navbar-collapse" id="navbarCollapse">
         {% if current_user.is_authenticated %}
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('bench_index') }}">My Performances</a>
+              <a class="nav-link" href="{{ url_for('bench_index') }}">My Lifts</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('bench_add') }}">Add a new Lift</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('tasks_index') }}">Tasks</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('tasks_form') }}">Add a Task</a>
+              <a class="nav-link" href="{{ url_for('bench_form') }}">Add a Lift</a>
             </li>
           </ul>
         {% endif %}
           <div class="form-inline mt-2 mt-md-0">
 	    {% if current_user.is_authenticated %}
+        <tr>{{current_user.name}}&nbsp; &nbsp; &nbsp; &nbsp;</tr>
 	    <a href="{{ url_for('auth_logout') }}">Logout</a>
       {% else %}
       <a href="{{ url_for('auth_signup') }}">Register</a>

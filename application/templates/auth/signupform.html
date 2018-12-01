@@ -2,6 +2,10 @@
 
 {% block body %}
 {{ error }}
+<h4>
+    Register
+</h4>
+<br>
 <form method="POST" action="{{ url_for('auth_signup') }}">
   <table>
     <tr>
@@ -12,6 +16,9 @@
           {{ form.name }}
         </td>
       </tr>
+      {% for error in form.name.errors %}
+			<li>{{ error }}</li>
+		{% endfor %}
     <tr>
     <tr>
       <td>
@@ -21,6 +28,9 @@
 	{{ form.username }}
       </td>
     </tr>
+    {% for error in form.username.errors %}
+			<li>{{ error }}</li>
+		{% endfor %}
     <tr>
       <td>
 	{{ form.password.label }}
@@ -29,6 +39,9 @@
 	{{ form.password }}
       </td>
     </tr>
+    {% for error in form.password.errors %}
+			<li>{{ error }}</li>
+		{% endfor %}
     <tr>
       <td colspan="2">
 	<input type="submit" value="Signup"/>

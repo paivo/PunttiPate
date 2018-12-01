@@ -1,5 +1,6 @@
 from application import db
 
+
 class Base(db.Model):
 
     __abstract__ = True
@@ -18,3 +19,5 @@ class Lift(db.Model):
     date_modified = db.Column(db.DateTime, default=db.func.current_timestamp(), onupdate=db.func.current_timestamp())
     weight = db.Column(db.Integer, nullable=False)
     date = db.Column(db.Date, nullable=False)
+
+

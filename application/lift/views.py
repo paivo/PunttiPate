@@ -2,31 +2,34 @@ from flask import render_template, request, redirect, url_for
 from flask_login import current_user
 
 from application import app, db, login_manager, login_required
-from application.lift.models import Bench
+from application.lift.models import Bench, Squat, Dead
 from application.lift.forms import LiftForm
 
 
 @app.route("/bench/", methods=["GET"])
+@login_required(role="ANY")
 def bench_index():
 
-    return render_template("lift/list.html", benches=Bench.query.all())
-
-@app.route("/bench/add/", methods=["GET"])
-def bench_add():
-    
-    return render_template("lift/add.html")
+    return render_template("lift/list.html", benches=Bench.find_lifts(), squats=Squat.find_lifts(), deads=Dead.find_lifts())
 
 
 @app.route("/bench/new/", methods=["GET"])
 @login_required(role="ANY")
 def bench_form():
+
     return render_template("lift/new.html", form=LiftForm())
 
 
-@app.route("/bench/delete/<bench_id>/", methods=["POST"])
+@app.route("/bench/delete/<id>/<lift_type>/", methods=["POST"])
 @login_required(role="ANY")
-def bench_delete(bench_id):
-    t = Bench.query.get(bench_id)
+def bench_delete(id, lift_type):
+
+    if lift_type == "bench":
+        t = Bench.query.get(id)
+    elif lift_type == "squat":
+        t = Squat.query.get(id)
+    else:
+        t = Dead.query.get(id)
     if t.account_id != current_user.id:
         return login_manager.unauthorized()
 
@@ -44,9 +47,15 @@ def bench_create():
     if not form.validate():
         return render_template("lift/new.html", form=form)
 
-    t = Bench(form.weight.data, form.date.data)
-    t.account_id = current_user.id
+    print(form.lifts.data)
+    if form.lifts.data == "bench":
+        t = Bench(form.weight.data, form.date.data)
+    elif form.lifts.data == "squat":
+        t = Squat(form.weight.data, form.date.data)
+    else:
+        t = Dead(form.weight.data, form.date.data)
 
+    t.account_id = current_user.id
     db.session().add(t)
     db.session().commit()
 
