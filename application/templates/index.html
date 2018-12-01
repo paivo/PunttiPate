@@ -5,19 +5,4 @@
   Welcome to PunttiPate! Add a new achievement or take a look at the top performances.
 </p>
 
-{% if needs_tasks is defined %}
-<p>
-  The following users need work:
-</p>
-
-<ul>
-  {% for user in needs_tasks %}
-  <li>
-    {{user.id}} {{user.name}}
-  </li>
-  {% endfor %}
-</ul>
-
-{% endif %}
-
 {% endblock %}
