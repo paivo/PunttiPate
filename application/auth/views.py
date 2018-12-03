@@ -5,6 +5,7 @@ from application import app, db
 from application.auth.models import User
 from application.auth.forms import LoginForm, SignupForm
 
+
 @app.route("/auth/login", methods = ["GET", "POST"])
 def auth_login():
     if request.method == "GET":
@@ -21,10 +22,12 @@ def auth_login():
     login_user(user)
     return redirect(url_for("index"))   
 
+
 @app.route("/auth/logout")
 def auth_logout():
     logout_user()
     return redirect(url_for("index"))     
+
 
 @app.route("/auth/signup", methods = ["GET", "POST"])
 def auth_signup():
@@ -32,16 +35,17 @@ def auth_signup():
         return render_template("auth/signupform.html", form = SignupForm())
 
     form = SignupForm(request.form)
-    # mahdolliset validoinnit
 
-    possibleusername = User.query.filter_by(username=form.username.data).first()
-    if possibleusername:
-        return render_template("auth/signupform.html", form = form,
-                                error = "Username is already taken.")
+    possible_username = User.query.filter_by(username=form.username.data).first()
+    if possible_username:
+        return render_template("auth/signupform.html", form=form, error="Username is already taken.")
+
+    if form.password.data != form.confirm.data:
+        return render_template("auth/signupform.html", form=form, error="Passwords do not match.")
 
     user = User(form.name.data)
-    user.username=form.username.data
-    user.password=form.password.data
+    user.username = form.username.data
+    user.password = form.password.data
 
     db.session().add(user)
     db.session().commit()

@@ -31,6 +31,7 @@
     {% for error in form.username.errors %}
 			<li>{{ error }}</li>
 		{% endfor %}
+
     <tr>
       <td>
 	{{ form.password.label }}
@@ -42,6 +43,18 @@
     {% for error in form.password.errors %}
 			<li>{{ error }}</li>
 		{% endfor %}
+          <tr>
+      <td>
+	{{ form.confirm.label }}
+      </td>
+      <td>
+	{{ form.confirm }}
+      </td>
+    </tr>
+    {% for error in form.confirm.errors %}
+			<li>{{ error }}</li>
+		{% endfor %}
+
     <tr>
       <td colspan="2">
 	<input type="submit" value="Signup"/>
