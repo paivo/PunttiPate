@@ -39,6 +39,32 @@ def bench_delete(id, lift_type):
     return redirect(url_for("bench_index"))
 
 
+@app.route("/bench/change/<id>/<public>/<lift_type>/", methods=["POST"])
+@login_required(role="ANY")
+def bench_change(id, public,  lift_type):
+
+    print("HGei")
+    if lift_type == "bench":
+        t = Bench.query.get(id)
+    elif lift_type == "squat":
+        t = Squat.query.get(id)
+    else:
+        t = Dead.query.get(id)
+    if t.account_id != current_user.id:
+        return login_manager.unauthorized()
+    print("Hui")
+
+    if public == "Yes":
+        t.public = False
+    else:
+        t.public = True
+
+    db.session().commit()
+    print("Hai")
+
+    return redirect(url_for("bench_index"))
+
+
 @app.route("/bench/", methods=["POST"])
 @login_required(role="ANY")
 def bench_create():
@@ -49,11 +75,11 @@ def bench_create():
 
     print(form.lifts.data)
     if form.lifts.data == "bench":
-        t = Bench(form.weight.data, form.date.data)
+        t = Bench(form.weight.data, form.date.data, form.public.data)
     elif form.lifts.data == "squat":
-        t = Squat(form.weight.data, form.date.data)
+        t = Squat(form.weight.data, form.date.data, form.public.data)
     else:
-        t = Dead(form.weight.data, form.date.data)
+        t = Dead(form.weight.data, form.date.data, form.public.data)
 
     t.account_id = current_user.id
     db.session().add(t)

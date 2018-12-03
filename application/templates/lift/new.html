@@ -34,7 +34,7 @@
 	    {% endfor %}
 	  </ul>
 	</td>
-      </tr>
+
       <tr>
 	<td>
 	  {{ form.date.label }}
@@ -48,10 +48,17 @@
 	    <li>Insert date in form: dd.mm.yyyy</li>
 	    {% endfor %}
 	  </ul>
+	  </tr>
 	</td>
+		<td>
+	  		{{ form.public.label }}
+		</td>
+		<td>
+	  		{{ form.public }}
+		</td>
 	<td>
 	</td>
-      </tr>
+
       <tr>
 				<td></td>
 	<td><br>
