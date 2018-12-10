@@ -97,7 +97,7 @@ class Bench(Lift):
 
         return response
 
-    ## Paras julkinen penkki tulos per käyttäjä
+    ## Paras julkinen penkki tulos per käyttäjä.
     @staticmethod
     def find_best():
 

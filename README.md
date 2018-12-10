@@ -2,17 +2,15 @@
 
 Sivulla voi lisätä itselleen penkissä, kyykyssä ja maastavedossa tehtyjä yhden toiston tuloksia. Sivulla voi myös tarkastella koko tietokannan kaikkien aikojen parhaita tuloksia, sekä kuukauden (tulossa) parhaita tuloksia. Suoritukseen merkitään nostetun painon lisäksi päivämäärä sekä tieto suorituksen julkisuudesta.
 
+Salien lisäämisen validointi sekä omien salien listaaminen kesken.
+
 [PunttiPate Herokussa](https://punttipate.herokuapp.com/)
-
 Kirjautuminen:
-
 Käyttäjänimi: hello
 Salasana: world
 
 [Tietokantakaavio](https://github.com/paivo/PunttiPate/blob/master/documentation/Tietokantakaavio.png)
-
 [Käyttötapaukset](https://github.com/paivo/PunttiPate/blob/master/documentation/userstory.md)
-
 Ennen ohjelman asentamista tarvitset:
 [Työvälineet ja niiden asentaminen](https://materiaalit.github.io/tsoha-18/tyovalineet/)
 
