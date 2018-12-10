@@ -98,10 +98,11 @@ class Bench(Lift):
     ## 10 parasta julkista penkkitulosta
     @staticmethod
     def find_best():
-        stmt = text("SELECT DISTINCT ON (Account.username) Bench.weight, Bench.date, Account.username FROM Bench, Account"
+        stmt = text("SELECT Bench.date, Account.username, MAX(Bench.weight) OVER (PARTITION BY Account.username"
+                    " FROM Bench, Account "
                     " WHERE Account.id = Bench.account_id"
                     " AND Bench.public = '1'"
-                    " ORDER BY ( Bench.weight ) DESC LIMIT 10")
+                    " DESC LIMIT 10")
         res = db.engine.execute(stmt)
 
         response = []
