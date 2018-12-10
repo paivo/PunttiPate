@@ -1,10 +1,12 @@
   {% extends "layout.html" %}
 
 	{% block body %}
-	<br>
   	<h2>
 		Add a new Max Lift
 	</h2>
+  	<p>
+		Public lifts can be shown on the front page.
+	</p>
 	<br>
   	<h5>
 		Select one:
@@ -63,7 +65,7 @@
 
       <tr>
 				<td></td>
-	<td><br>
+	<td>
 		
 		<input type="submit" class="btn btn-primary" value="Add"/>
 	</td>
@@ -72,7 +74,7 @@
   </form>
 
 
-	<br><br><br>
+	<br>
   <h3>
 		Add a new Gym
   </h3>
@@ -81,7 +83,6 @@
 		<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
 		<th>Name</th>
 		<th></th>
-		<br>
 	</tr>
   	{% for gym in gyms %}
   	<tr>

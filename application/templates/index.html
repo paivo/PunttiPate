@@ -2,23 +2,26 @@
 
 {% block body %}
 {% if current_user.is_authenticated %}
-  <h4>
+  <h2>
     Welcome to PunttiPate!
-  </h4>
+  </h2>
 
   {% else %}
-  <h4>
-    Welcome to PunttiPate! Register to add your own lifts.
-  </h4>
+  <h2>
+    Welcome to PunttiPate!
+  </h2>
+    <h4>
+        Register or login to add your own lifts.
+    </h4>
 {% endif %}
-    <h5>
+    <h4>
     Here are all the best lifts and lifters.
-  </h5>
+  </h4>
 
 
 
-<br><br>
-<table>
+<br>
+<table class="table table-dark">
     <h4>
         Benchpress
     </h4>
@@ -36,8 +39,7 @@
     {% endfor %}
     </table>
 
-    <br>
-    <table>
+    <table class="table table-dark">
     <h4>
         Squat
     </h4>
@@ -55,8 +57,7 @@
     {% endfor %}
     </table>
 
-    <br>
-    <table>
+    <table class="table table-dark">
     <h4>
         Deadlift
     </h4>
