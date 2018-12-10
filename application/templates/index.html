@@ -1,8 +1,15 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<p>
-  Welcome to PunttiPate! Register to add your own lifts.
-</p>
+{% if current_user.is_authenticated %}
+  <h4>
+    Welcome to PunttiPate!
+  </h4>
+  {% else %}
+  <p>
+    Welcome to PunttiPate! Register to add your own lifts.
+  </p>
+
+{% endif %}
 
 {% endblock %}
