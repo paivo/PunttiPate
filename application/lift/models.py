@@ -119,7 +119,7 @@ class Bench(Lift):
             response.append({"weight": row[0], "date": row[1], "name": row[2]})
 
         if os.environ.get("HEROKU"):
-            response = sorted(response, key=itemgetter(0))
+            response = sorted(response, key=itemgetter("weight"))
 
         return response
 
