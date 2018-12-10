@@ -104,7 +104,7 @@ class Bench(Lift):
             stmt = text("SELECT DISTINCT ON (Account.username) Bench.weight, Bench.date, Account.username"
                         " FROM Bench, Account WHERE Bench.weight = ( SELECT MAX(Bench.weight)"
                         " FROM Bench WHERE Bench.public = '1' AND Bench.account_id = Account.id )"
-                        " ORDER BY ( Bench.weight ) DESC LIMIT 30")
+                        " ORDER BY Bench.weight DESC LIMIT 30")
         else:
             stmt = text("SELECT MAX(Bench.weight), Bench.date, Account.username FROM Bench, Account"
                         " WHERE Account.id = Bench.account_id"
