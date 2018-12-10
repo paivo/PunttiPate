@@ -3,6 +3,7 @@ from application.models import Lift, Base
 from sqlalchemy.sql import text
 from flask_login import current_user
 import os
+from operator import itemgetter
 
 
 class Gym(Base):
@@ -103,8 +104,7 @@ class Bench(Lift):
         if os.environ.get("HEROKU"):
             stmt = text("SELECT DISTINCT ON (Account.username) Bench.weight, Bench.date, Account.username"
                         " FROM Bench, Account WHERE Bench.weight = ( SELECT MAX(Bench.weight)"
-                        " FROM Bench WHERE Bench.public = '1' AND Bench.account_id = Account.id )"
-                        " ORDER BY Bench.weight DESC LIMIT 30")
+                        " FROM Bench WHERE Bench.public = '1' AND Bench.account_id = Account.id )")
         else:
             stmt = text("SELECT MAX(Bench.weight), Bench.date, Account.username FROM Bench, Account"
                         " WHERE Account.id = Bench.account_id"
@@ -117,6 +117,8 @@ class Bench(Lift):
         response = []
         for row in res:
             response.append({"weight": row[0], "date": row[1], "name": row[2]})
+        if os.environ.get("HEROKU"):
+            response = sorted(response, key=itemgetter(2))
 
         return response
 
