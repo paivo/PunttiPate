@@ -119,7 +119,7 @@ class Bench(Lift):
             response.append({"weight": row[0], "date": row[1], "name": row[2]})
 
         if os.environ.get("HEROKU"):
-            response = sorted(response, key=itemgetter("weight"))
+            response = sorted(response, key=itemgetter("weight"), reverse=True)
 
         return response
 
@@ -170,7 +170,7 @@ class Squat(Lift):
         for row in res:
             response.append({"weight": row[0], "date": row[1], "name": row[2]})
         if os.environ.get("HEROKU"):
-            response = sorted(response, key=itemgetter("weight"))
+            response = sorted(response, key=itemgetter("weight"), reverse=True)
 
         return response
 
@@ -220,6 +220,6 @@ class Dead(Lift):
         for row in res:
             response.append({"weight": row[0], "date": row[1], "name": row[2]})
         if os.environ.get("HEROKU"):
-            response = sorted(response, key=itemgetter("weight"))
+            response = sorted(response, key=itemgetter("weight"), reverse=True)
 
         return response
