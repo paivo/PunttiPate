@@ -100,7 +100,7 @@ class Bench(Lift):
     def find_best():
         stmt = text("SELECT Bench.weight, Bench.date, Account.username FROM Bench, Account"
                     " WHERE Bench.account_id = Account.id"
-                    " AND Bench.public = 1"
+                    " AND Bench.public = '1'"
                     " GROUP BY Account.name"
                     " ORDER BY Bench.weight DESC LIMIT 10")
         res = db.engine.execute(stmt)
@@ -144,7 +144,7 @@ class Squat(Lift):
     def find_best():
         stmt = text("SELECT Squat.weight, Squat.date, Account.username FROM Squat, Account"
                     " WHERE Squat.account_id = Account.id"
-                    " AND Squat.public = 1"
+                    " AND Squat.public = '1'"
                     " GROUP BY Account.name"
                     " ORDER BY Squat.weight DESC LIMIT 10")
         res = db.engine.execute(stmt)
@@ -182,12 +182,12 @@ class Dead(Lift):
 
         return response
 
-    ## 10 parasta julkista kyykkytulosta
+    ## 10 parasta julkista maastavetotulosta
     @staticmethod
     def find_best():
         stmt = text("SELECT Dead.weight, Dead.date, Account.username FROM Dead, Account"
                     " WHERE Dead.account_id = Account.id"
-                    " AND Dead.public = 1"
+                    " AND Dead.public = '1'"
                     " GROUP BY Account.name"
                     " ORDER BY Dead.weight DESC LIMIT 10")
         res = db.engine.execute(stmt)
