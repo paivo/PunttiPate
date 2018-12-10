@@ -32,9 +32,12 @@ def auth_logout():
 @app.route("/auth/signup", methods = ["GET", "POST"])
 def auth_signup():
     if request.method == "GET":
-        return render_template("auth/signupform.html", form = SignupForm())
+        return render_template("auth/signupform.html", form=SignupForm())
 
     form = SignupForm(request.form)
+
+    if not form.validate():
+        return render_template("auth/signupform.html", form=form)
 
     possible_username = User.query.filter_by(username=form.username.data).first()
     if possible_username:

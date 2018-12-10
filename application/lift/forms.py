@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import DateField, IntegerField, RadioField, BooleanField, validators
+from wtforms import DateField, IntegerField, StringField, RadioField, BooleanField, validators
 
 
 class LiftForm(FlaskForm):
@@ -7,6 +7,13 @@ class LiftForm(FlaskForm):
     weight = IntegerField("Weight", [validators.NumberRange(min=1, max=1000)])
     date = DateField("Date", format='%d.%m.%Y')
     public = BooleanField('Public')
+
+    class Meta:
+        csrf = False
+
+
+class GymForm(FlaskForm):
+    name = StringField("Other:", [validators.Length(min=3, max=50, message="Name must be between 3 to 50 characters.")])
 
     class Meta:
         csrf = False

@@ -18,9 +18,11 @@
 				<td>{{ lift.label }}</td>
     		</tr>
 		{% endfor %}
+		<ul>
 		{% for error in form.lifts.errors %}
 			<li>{{ error }}</li>
 		{% endfor %}
+		</ul>
 	<td><br>
 	  {{ form.weight.label }}
 	</td>
@@ -63,10 +65,48 @@
 				<td></td>
 	<td><br>
 		
-		<input type="submit" value="Add"/>
+		<input type="submit" class="btn btn-primary" value="Add"/>
 	</td>
       </tr>
     </table>
   </form>
+
+
+	<br><br><br>
+  <h3>
+		Add a new Gym
+  </h3>
+<table>
+  	<tr>
+		<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+		<th>Name</th>
+		<th></th>
+		<br>
+	</tr>
+  	{% for gym in gyms %}
+  	<tr>
+		<form method="POST" action="{{ url_for('gym_add', id=gym.id) }}">
+			<td></td>
+			<td>{{ gym.name }}</td>
+			<td><input type="submit" class="btn btn-primary" value="Add"/></td>
+		</form>
+
+
+	</tr>
+  	{% endfor %}
+	<tr>
+	  <form method="POST" action="{{ url_for('gym_create') }}">
+
+			<td>{{ form2.name.label }}</td>
+			<td>{{ form2.name }}</td>
+		  	<ul>{% for error in form2.name.errors %}
+	    			<li> {{error}} </li>
+	    		{% endfor %}
+			</ul>
+			  <td><input type="submit" class="btn btn-primary" value="Add"/></td>
+
+	  </form>
+	</tr>
+</table>
 
   {% endblock %}
