@@ -156,7 +156,7 @@ class Squat(Lift):
     def find_best():
         if os.environ.get("HEROKU"):
             stmt = text("SELECT DISTINCT ON (Account.username) Squat.weight, Squat.date, Account.username"
-                        " FROM Squat, Account WHERE AND Squat.weight = ( SELECT MAX(Squat.weight) FROM Squat"
+                        " FROM Squat, Account WHERE Squat.weight = ( SELECT MAX(Squat.weight) FROM Squat"
                         " WHERE Squat.public = '1' AND Squat.account_id = Account.id )")
         else:
             stmt = text("SELECT MAX(Squat.weight), Squat.date, Account.username FROM Squat, Account"
