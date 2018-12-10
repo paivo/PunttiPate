@@ -95,6 +95,22 @@ class Bench(Lift):
 
         return response
 
+    ## 10 parasta julkista penkkitulosta
+    @staticmethod
+    def find_best():
+        stmt = text("SELECT Bench.weight, Bench.date, Account.username FROM Bench, Account"
+                    " WHERE Bench.account_id = Account.id"
+                    " AND Bench.public = 1"
+                    " GROUP BY Account.name"
+                    " ORDER BY Bench.weight DESC LIMIT 10")
+        res = db.engine.execute(stmt)
+
+        response = []
+        for row in res:
+            response.append({"weight": row[0], "date": row[1], "name": row[2]})
+
+        return response
+
 
 class Squat(Lift):
 
@@ -123,6 +139,23 @@ class Squat(Lift):
         return response
 
 
+    ## 10 parasta julkista kyykkytulosta
+    @staticmethod
+    def find_best():
+        stmt = text("SELECT Squat.weight, Squat.date, Account.username FROM Squat, Account"
+                    " WHERE Squat.account_id = Account.id"
+                    " AND Squat.public = 1"
+                    " GROUP BY Account.name"
+                    " ORDER BY Squat.weight DESC LIMIT 10")
+        res = db.engine.execute(stmt)
+
+        response = []
+        for row in res:
+            response.append({"weight": row[0], "date": row[1], "name": row[2]})
+
+        return response
+
+
 class Dead(Lift):
 
     account_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=False)
@@ -146,5 +179,21 @@ class Dead(Lift):
                 response.append({"weight": row[0], "date": row[1], "public": "Yes", "id": row[3]})
             else:
                 response.append({"weight": row[0], "date": row[1], "public": "No", "id": row[3]})
+
+        return response
+
+    ## 10 parasta julkista kyykkytulosta
+    @staticmethod
+    def find_best():
+        stmt = text("SELECT Dead.weight, Dead.date, Account.username FROM Dead, Account"
+                    " WHERE Dead.account_id = Account.id"
+                    " AND Dead.public = 1"
+                    " GROUP BY Account.name"
+                    " ORDER BY Dead.weight DESC LIMIT 10")
+        res = db.engine.execute(stmt)
+
+        response = []
+        for row in res:
+            response.append({"weight": row[0], "date": row[1], "name": row[2]})
 
         return response
