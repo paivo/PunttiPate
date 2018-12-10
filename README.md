@@ -20,8 +20,8 @@ Ennen ohjelman asentamista tarvitset:
 Asennus- ja käynnistämisohje paikallisesti:
 1. Kopioi repositorion osoite.
 2. Mene terminaalissa kansioon johon haluat ohjelman asentaa.
-3. Kopio projekti: git clone https://github.com/ErkkiEsimerkki/EsimerkkiProjekti
-4. Siirry projektin juurikansiooon: ~/EsimerkkiProjekti$
+3. Kopio projekti: git clone https://github.com/paivo/PunttiPate
+4. Siirry projektin juurikansiooon: ~/PunttiPate$
 5. Luo virtuaaliympäristö: python3 -m venv venv
 6. Aktivoi virtuaaliympäristö: source venv/bin/activate
 7. Lataa riippuvuudet: pip install -r requirements.txt
