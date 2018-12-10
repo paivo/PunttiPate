@@ -2,6 +2,7 @@ from application import db
 from application.models import Lift, Base
 from sqlalchemy.sql import text
 from flask_login import current_user
+import os
 
 
 class Gym(Base):
@@ -95,14 +96,21 @@ class Bench(Lift):
 
         return response
 
-    ## 10 parasta julkista penkkitulosta
+    ## Paras julkinen penkki tulos per käyttäjä
     @staticmethod
     def find_best():
-        stmt = text("SELECT MAX(Bench.weight), Bench.date, Account.username FROM Bench, Account"
-                    " WHERE Account.id = Bench.account_id"
-                    " AND Bench.public = '1'"
-                    " GROUP BY ( Account.username )"
-                    " ORDER BY ( Bench.weight ) DESC LIMIT 10")
+
+        if os.environ.get("HEROKU"):
+            stmt = text("SELECT DISTINCT ON (Account.username) Bench.weight, Bench.date, Account.username"
+                        " FROM Bench, Account WHERE Bench.public = '1'"
+                        " AND Bench.weight = ( SELECT MAX(Bench.weight) FROM Bench WHERE Bench.account_id = Account.id)")
+        else:
+            stmt = text("SELECT MAX(Bench.weight), Bench.date, Account.username FROM Bench, Account"
+                        " WHERE Account.id = Bench.account_id"
+                        " AND Bench.public = '1'"
+                        " GROUP BY ( Account.username )"
+                        " ORDER BY ( Bench.weight ) DESC LIMIT 10")
+
         res = db.engine.execute(stmt)
 
         response = []
@@ -139,14 +147,19 @@ class Squat(Lift):
         return response
 
 
-    ## 10 parasta julkista kyykkytulosta
+    ## Paras julkinen kyykky tulos per käyttäjä
     @staticmethod
     def find_best():
-        stmt = text("SELECT MAX(Squat.weight), Squat.date, Account.username FROM Squat, Account"
-                    " WHERE Account.id = Squat.account_id"
-                    " AND Squat.public = '1'"
-                    " GROUP BY ( Account.username )"
-                    " ORDER BY ( Squat.weight ) DESC LIMIT 10")
+        if os.environ.get("HEROKU"):
+            stmt = text("SELECT DISTINCT ON (Account.username) Squat.weight, Squat.date, Account.username"
+                        " FROM Squat, Account WHERE Squat.public = '1'"
+                        " AND Squat.weight = ( SELECT MAX(Squat.weight) FROM Squat WHERE Squat.account_id = Account.id)")
+        else:
+            stmt = text("SELECT MAX(Squat.weight), Squat.date, Account.username FROM Squat, Account"
+                        " WHERE Account.id = Squat.account_id"
+                        " AND Squat.public = '1'"
+                        " GROUP BY ( Account.username )"
+                        " ORDER BY ( Squat.weight ) DESC LIMIT 10")
         res = db.engine.execute(stmt)
 
         response = []
@@ -165,7 +178,7 @@ class Dead(Lift):
         self.date = date
         self.public = public
 
-    ## Käyttäjäkohtaiset maastavetotulokset tulostettavassa muodossa.
+    ## Käyttäjäkohtaiset penkkitulokset tulostettavassa muodossa.
     @staticmethod
     def find_lifts():
         stmt = text("SELECT Dead.weight, Dead.date, Dead.public, Dead.id FROM Dead"
@@ -182,14 +195,19 @@ class Dead(Lift):
 
         return response
 
-    ## 10 parasta julkista maastavetotulosta
+    ## Paras julkinen maastaveto tulos per käyttäjä
     @staticmethod
     def find_best():
-        stmt = text("SELECT MAX(Dead.weight), Dead.date, Account.username FROM Dead, Account"
-                    " WHERE Account.id = Dead.account_id"
-                    " AND Dead.public = '1'"
-                    " GROUP BY ( Account.username )"
-                    " ORDER BY ( Dead.weight ) DESC LIMIT 10")
+        if os.environ.get("HEROKU"):
+            stmt = text("SELECT DISTINCT ON (Account.username) Dead.weight, Dead.date, Account.username"
+                        " FROM Dead, Account WHERE Dead.public = '1'"
+                        " AND Dead.weight = ( SELECT MAX(Dead.weight) FROM Dead WHERE Dead.account_id = Account.id)")
+        else:
+            stmt = text("SELECT MAX(Dead.weight), Dead.date, Account.username FROM Dead, Account"
+                        " WHERE Account.id = Dead.account_id"
+                        " AND Dead.public = '1'"
+                        " GROUP BY ( Account.username )"
+                        " ORDER BY ( Dead.weight ) DESC LIMIT 10")
         res = db.engine.execute(stmt)
 
         response = []
