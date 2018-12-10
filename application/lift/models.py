@@ -101,8 +101,8 @@ class Bench(Lift):
         stmt = text("SELECT Bench.weight, Bench.date, Account.username FROM Bench, Account"
                     " WHERE Account.id = Bench.account_id"
                     " AND Bench.public = '1'"
-                    " GROUP BY Account.name"
-                    " ORDER BY Bench.weight DESC LIMIT 10")
+                    " GROUP BY ( Account.name ) "
+                    " ORDER BY ( Bench.weight ) DESC LIMIT 10")
         res = db.engine.execute(stmt)
 
         response = []
@@ -145,8 +145,8 @@ class Squat(Lift):
         stmt = text("SELECT Squat.weight, Squat.date, Account.username FROM Squat, Account"
                     " WHERE Account.id = Squat.account_id"
                     " AND Squat.public = '1'"
-                    " GROUP BY Account.name"
-                    " ORDER BY Squat.weight DESC LIMIT 10")
+                    " GROUP BY ( Account.name )"
+                    " ORDER BY ( Squat.weight ) DESC LIMIT 10")
         res = db.engine.execute(stmt)
 
         response = []
@@ -188,8 +188,8 @@ class Dead(Lift):
         stmt = text("SELECT Dead.weight, Dead.date, Account.username FROM Dead, Account"
                     " WHERE Account.id = Dead.account_id"
                     " AND Dead.public = '1'"
-                    " GROUP BY Account.name"
-                    " ORDER BY Dead.weight DESC LIMIT 10")
+                    " GROUP BY ( Account.name )"
+                    " ORDER BY ( Dead.weight ) DESC LIMIT 10")
         res = db.engine.execute(stmt)
 
         response = []
