@@ -23,7 +23,6 @@ def tasks_set_done(task_id):
 
     t = Task.query.get(task_id)
     if t.account_id != current_user.id:
-        # tee jotain, esim. 
         return login_manager.unauthorized()
 
     t.done = True
@@ -55,7 +54,6 @@ def tasks_create():
 def tasks_delete(task_id):
     t = Task.query.get(task_id)
     if t.account_id != current_user.id:
-        # tee jotain, esim.
         return login_manager.unauthorized()
 
     db.session().delete(t)

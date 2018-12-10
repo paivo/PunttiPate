@@ -10,16 +10,18 @@ class Gym(Base):
     def __init__(self, name):
         self.name = name
 
+    ## Tietokannasta tietty sali id nimen perusteella.
     @staticmethod
     def find_one(name):
-        stmt = text("SELECT DISTINCT Gym.id FROM Gym "
+        stmt = text("SELECT Gym.id FROM Gym "
                     "WHERE Gym.name = :name ").params(name=name)
         res = db.engine.execute(stmt)
         return res
 
+    ## Kaikki salit. Id ja salin nimi.
     @staticmethod
     def find_all():
-        stmt = text("SELECT DISTINCT Gym.id, Gym.name FROM Gym "
+        stmt = text("SELECT Gym.id, Gym.name FROM Gym "
                     "ORDER BY Gym.name")
         res = db.engine.execute(stmt)
 
@@ -29,6 +31,7 @@ class Gym(Base):
 
         return response
 
+    ## Käyttäjä kohtaiset salit. Id ja salin nimi.
     @staticmethod
     def find_gyms():
         stmt = text("SELECT Gym.id, Gym.name FROM Gym, Gym_User, Account "
@@ -53,6 +56,7 @@ class GymUser(Base):
         self.gym_id = gym_id
         self.account_id = account_id
 
+    ## Kaikki yhditetyt gym ja user id:t
     @staticmethod
     def find_all():
         stmt = text("SELECT Gym_User.gym_id, Gym_User.account_id FROM Gym_User")
@@ -74,6 +78,7 @@ class Bench(Lift):
         self.date = date
         self.public = public
 
+    ## Käyttäjäkohtaiset penkkitulokset tulostettavassa muodossa.
     @staticmethod
     def find_lifts():
         stmt = text("SELECT Bench.weight, Bench.date, Bench.public, Bench.id FROM Bench"
@@ -100,6 +105,7 @@ class Squat(Lift):
         self.date = date
         self.public = public
 
+    ## Käyttäjäkohtaiset kyykkytulokset tulostettavassa muodossa.
     @staticmethod
     def find_lifts():
         stmt = text("SELECT Squat.weight, Squat.date, Squat.public, Squat.id FROM Squat"
@@ -126,6 +132,7 @@ class Dead(Lift):
         self.date = date
         self.public = public
 
+    ## Käyttäjäkohtaiset maastavetotulokset tulostettavassa muodossa.
     @staticmethod
     def find_lifts():
         stmt = text("SELECT Dead.weight, Dead.date, Dead.public, Dead.id FROM Dead"

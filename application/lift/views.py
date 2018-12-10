@@ -5,6 +5,7 @@ from application.lift.models import Bench, Squat, Dead, Gym, GymUser
 from application.lift.forms import LiftForm, GymForm
 
 
+## Luodaan gym tietokohde jos saman nimistä ei jo ole. Liitetään kyseinen gym käyttäjään.
 @app.route("/gym/create/", methods=["POST"])
 @login_required(role="ANY")
 def gym_create():
@@ -28,6 +29,7 @@ def gym_create():
     return redirect(url_for("bench_index"))
 
 
+## Liitetään kyseinen gym käyttäjään.
 @app.route("/gym/add/<id>/", methods=["POST"])
 @login_required(role="ANY")
 def gym_add(id):
@@ -45,6 +47,7 @@ def gym_add(id):
     return redirect(url_for("bench_index"))
 
 
+## Haetaan kaikki kyseisen käyttäjän punttitulokset listattavaksi.
 @app.route("/bench/", methods=["GET"])
 @login_required(role="ANY")
 def bench_index():
@@ -52,6 +55,7 @@ def bench_index():
     return render_template("lift/list.html", benches=Bench.find_lifts(), squats=Squat.find_lifts(), deads=Dead.find_lifts())
 
 
+## Haetaan punttikaavake, salikaavake ja kaikki jo luodut salit.
 @app.route("/bench/new/", methods=["GET"])
 @login_required(role="ANY")
 def bench_form():
@@ -59,6 +63,7 @@ def bench_form():
     return render_template("lift/new.html", form=LiftForm(), form2=GymForm(), gyms=Gym.find_all())
 
 
+##Poista penkki, kyykky tai maastaveto tulos
 @app.route("/bench/delete/<id>/<lift_type>/", methods=["POST"])
 @login_required(role="ANY")
 def bench_delete(id, lift_type):
@@ -78,6 +83,7 @@ def bench_delete(id, lift_type):
     return redirect(url_for("bench_index"))
 
 
+## Vaihda punttitulos julkiseksi tai päinvastoin.
 @app.route("/bench/change/<id>/<public>/<lift_type>/", methods=["POST"])
 @login_required(role="ANY")
 def bench_change(id, public,  lift_type):
@@ -101,6 +107,7 @@ def bench_change(id, public,  lift_type):
     return redirect(url_for("bench_index"))
 
 
+##Luo penkki, kyykky tai mave tulos.
 @app.route("/bench/", methods=["POST"])
 @login_required(role="ANY")
 def bench_create():
