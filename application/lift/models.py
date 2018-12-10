@@ -103,13 +103,14 @@ class Bench(Lift):
         if os.environ.get("HEROKU"):
             stmt = text("SELECT DISTINCT ON (Account.username) Bench.weight, Bench.date, Account.username"
                         " FROM Bench, Account WHERE Bench.weight = ( SELECT MAX(Bench.weight)"
-                        " FROM Bench WHERE Bench.public = '1' AND Bench.account_id = Account.id )")
+                        " FROM Bench WHERE Bench.public = '1' AND Bench.account_id = Account.id )"
+                        " ORDER BY ( Bench.weight ) DESC LIMIT 30")
         else:
             stmt = text("SELECT MAX(Bench.weight), Bench.date, Account.username FROM Bench, Account"
                         " WHERE Account.id = Bench.account_id"
                         " AND Bench.public = '1'"
                         " GROUP BY ( Account.username )"
-                        " ORDER BY ( Bench.weight ) DESC LIMIT 10")
+                        " ORDER BY ( Bench.weight ) DESC LIMIT 30")
 
         res = db.engine.execute(stmt)
 
@@ -153,13 +154,14 @@ class Squat(Lift):
         if os.environ.get("HEROKU"):
             stmt = text("SELECT DISTINCT ON (Account.username) Squat.weight, Squat.date, Account.username"
                         " FROM Squat, Account WHERE Squat.public = '1'"
-                        " AND Squat.weight = ( SELECT MAX(Squat.weight) FROM Squat WHERE Squat.account_id = Account.id)")
+                        " AND Squat.weight = ( SELECT MAX(Squat.weight) FROM Squat WHERE Squat.account_id = Account.id)"
+                        " ORDER BY ( Squat.weight ) DESC LIMIT 30")
         else:
             stmt = text("SELECT MAX(Squat.weight), Squat.date, Account.username FROM Squat, Account"
                         " WHERE Account.id = Squat.account_id"
                         " AND Squat.public = '1'"
                         " GROUP BY ( Account.username )"
-                        " ORDER BY ( Squat.weight ) DESC LIMIT 10")
+                        " ORDER BY ( Squat.weight ) DESC LIMIT 30")
         res = db.engine.execute(stmt)
 
         response = []
@@ -201,13 +203,14 @@ class Dead(Lift):
         if os.environ.get("HEROKU"):
             stmt = text("SELECT DISTINCT ON (Account.username) Dead.weight, Dead.date, Account.username"
                         " FROM Dead, Account WHERE Dead.public = '1'"
-                        " AND Dead.weight = ( SELECT MAX(Dead.weight) FROM Dead WHERE Dead.account_id = Account.id)")
+                        " AND Dead.weight = ( SELECT MAX(Dead.weight) FROM Dead WHERE Dead.account_id = Account.id)"
+                        " ORDER BY ( Dead.weight ) DESC LIMIT 30")
         else:
             stmt = text("SELECT MAX(Dead.weight), Dead.date, Account.username FROM Dead, Account"
                         " WHERE Account.id = Dead.account_id"
                         " AND Dead.public = '1'"
                         " GROUP BY ( Account.username )"
-                        " ORDER BY ( Dead.weight ) DESC LIMIT 10")
+                        " ORDER BY ( Dead.weight ) DESC LIMIT 30")
         res = db.engine.execute(stmt)
 
         response = []
