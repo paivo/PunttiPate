@@ -117,8 +117,9 @@ class Bench(Lift):
         response = []
         for row in res:
             response.append({"weight": row[0], "date": row[1], "name": row[2]})
+
         if os.environ.get("HEROKU"):
-            response = sorted(response, key=attrgetter("weight"))
+            response = sorted(response, key=itemgetter(0))
 
         return response
 
