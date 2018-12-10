@@ -2,7 +2,6 @@
 
 Sivulla voi lisätä itselleen penkissä, kyykyssä ja maastavedossa tehtyjä yhden toiston tuloksia. Sivulla voi myös tarkastella koko tietokannan kaikkien aikojen parhaita tuloksia, sekä kuukauden (tulossa) parhaita tuloksia. Suoritukseen merkitään nostetun painon lisäksi päivämäärä sekä tieto suorituksen julkisuudesta.
 
-Etusivun SQL kyselyt eivät toimi Herokussa!
 [PunttiPate Herokussa](https://punttipate.herokuapp.com/)
 
 Kirjautuminen:
