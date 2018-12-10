@@ -102,8 +102,8 @@ class Bench(Lift):
 
         if os.environ.get("HEROKU"):
             stmt = text("SELECT DISTINCT ON (Account.username) Bench.weight, Bench.date, Account.username"
-                        " FROM Bench, Account WHERE Bench.public = '1'"
-                        " AND Bench.weight = ( SELECT MAX(Bench.weight) FROM Bench WHERE Bench.account_id = Account.id)")
+                        " FROM Bench, Account WHERE Bench.weight = ( SELECT MAX(Bench.weight)"
+                        " FROM Bench WHERE Bench.public = '1' AND Bench.account_id = Account.id )")
         else:
             stmt = text("SELECT MAX(Bench.weight), Bench.date, Account.username FROM Bench, Account"
                         " WHERE Account.id = Bench.account_id"
