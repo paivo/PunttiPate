@@ -3,7 +3,7 @@ from application.models import Lift, Base
 from sqlalchemy.sql import text
 from flask_login import current_user
 import os
-from operator import itemgetter
+from operator import itemgetter, attrgetter
 
 
 class Gym(Base):
@@ -118,7 +118,7 @@ class Bench(Lift):
         for row in res:
             response.append({"weight": row[0], "date": row[1], "name": row[2]})
         if os.environ.get("HEROKU"):
-            response = sorted(response, key=itemgetter(0))
+            response = sorted(response, key=attrgetter("weight"))
 
         return response
 
