@@ -98,7 +98,7 @@ class Bench(Lift):
     ## 10 parasta julkista penkkitulosta
     @staticmethod
     def find_best():
-        stmt = text("SELECT MAX(Bench.weight), Bench.date, Account.username FROM Bench, Account"
+        stmt = text("SELECT Bench.weight, Bench.date, Account.username FROM Bench, Account"
                     " WHERE Account.id = Bench.account_id"
                     " AND Bench.public = '1'"
                     " GROUP BY ( Account.username, Bench.date ) "
@@ -142,7 +142,7 @@ class Squat(Lift):
     ## 10 parasta julkista kyykkytulosta
     @staticmethod
     def find_best():
-        stmt = text("SELECT MAX(Squat.weight), Squat.date, Account.username FROM Squat, Account"
+        stmt = text("SELECT Squat.weight, Squat.date, Account.username FROM Squat, Account"
                     " WHERE Account.id = Squat.account_id"
                     " AND Squat.public = '1'"
                     " GROUP BY ( Account.username, Squat.date )"
@@ -185,7 +185,7 @@ class Dead(Lift):
     ## 10 parasta julkista maastavetotulosta
     @staticmethod
     def find_best():
-        stmt = text("SELECT MAX(Dead.weight), Dead.date, Account.username FROM Dead, Account"
+        stmt = text("SELECT Dead.weight, Dead.date, Account.username FROM Dead, Account"
                     " WHERE Account.id = Dead.account_id"
                     " AND Dead.public = '1'"
                     " GROUP BY ( Account.username, Dead.date )"
