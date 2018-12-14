@@ -18,7 +18,11 @@ class Gym(Base):
         stmt = text("SELECT Gym.id FROM Gym "
                     "WHERE Gym.name = :name ").params(name=name)
         res = db.engine.execute(stmt)
-        return res
+        response = []
+        for row in res:
+            response.append(row[0])
+
+        return response
 
     ## Kaikki salit. Id ja salin nimi.
     @staticmethod
@@ -30,6 +34,19 @@ class Gym(Base):
         response = []
         for row in res:
             response.append({"id": row[0], "name": row[1]})
+
+        return response
+
+    ## Kaikki salit. Id ja salin nimi.
+    @staticmethod
+    def find_all_names():
+        stmt = text("SELECT Gym.name FROM Gym "
+                    "ORDER BY Gym.name")
+        res = db.engine.execute(stmt)
+
+        response = []
+        for row in res:
+            response.append(row[0])
 
         return response
 

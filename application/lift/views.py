@@ -15,14 +15,14 @@ def gym_create():
     if not form2.validate():
         return render_template("lift/new.html", form=LiftForm(), form2=form2, gyms=Gym.find_all())
 
-    if gym_name not in Gym.find_all():
+    if gym_name not in Gym.find_all_names():
         gym = Gym(form2.name.data)
         db.session().add(gym)
         db.session().commit()
     else:
-        gym = Gym.find_one(gym_name)
+        gym_id = int(Gym.find_one(gym_name)[0])
 
-    gym_user = GymUser(gym.id, current_user.id)
+    gym_user = GymUser(gym_id, current_user.id)
     db.session().add(gym_user)
     db.session().commit()
 
@@ -35,11 +35,10 @@ def gym_create():
 def gym_add(id):
 
     for user in GymUser.find_all():
-        print(id, current_user.id)
-        print(user["gym_id"], user["account_id"])
-        if user["gym_id"] == id and user["account_id"] == current_user.id:
+
+        if int(user["gym_id"]) == int(id) and int(user["account_id"]) == int(current_user.id):
             return render_template("lift/new.html", form=LiftForm(), form2=GymForm(), gyms=Gym.find_all(),
-                              error="You have already added this one.")
+                              errormessage="You have already added this one.")
 
     gym_user = GymUser(id, current_user.id)
     db.session().add(gym_user)

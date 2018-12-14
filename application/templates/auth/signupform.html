@@ -13,7 +13,7 @@
         {{ form.name.label }}
         </td>
         <td>
-          {{ form.name }}
+          {{ form.name(class_="form-control") }}
         </td>
       </tr>
       {% for error in form.name.errors %}
@@ -25,7 +25,7 @@
 	{{ form.username.label }}
       </td>
       <td>
-	{{ form.username }}
+	{{ form.username(class_="form-control") }}
       </td>
     </tr>
     {% for error in form.username.errors %}
@@ -37,7 +37,7 @@
 	{{ form.password.label }}
       </td>
       <td>
-	{{ form.password }}
+	{{ form.password(class_="form-control") }}
       </td>
     </tr>
     {% for error in form.password.errors %}
@@ -48,7 +48,7 @@
 	{{ form.confirm.label }}
       </td>
       <td>
-	{{ form.confirm }}
+	{{ form.confirm(class_="form-control") }}
       </td>
     </tr>
     {% for error in form.confirm.errors %}

@@ -29,7 +29,7 @@
 	  {{ form.weight.label }}
 	</td>
 	<td><br>
-	  {{ form.weight }}
+	  {{ form.weight(class_="form-control") }}
 	</td>
 	<td>
 	  <ul>
@@ -44,12 +44,12 @@
 	  {{ form.date.label }}
 	</td>
 	<td>
-	  {{ form.date }}
+	  {{ form.date(class_="form-control", type="date") }}
 	</td>
 	<td>
 	  <ul>
 	    {% for error in form.date.errors %}
-	    <li> Insert date in form dd.mm.yyyy </li>
+	    <li> Insert date in form dd/mm/yyyy </li>
 	    {% endfor %}
 	  </ul>
 	  </tr>
@@ -78,7 +78,10 @@
   <h3>
 		Add a new Gym
   </h3>
-<table>
+
+	{{ errormessage }}
+
+	<table>
   	<tr>
 		<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
 		<th>Name</th>
@@ -86,20 +89,23 @@
 	</tr>
   	{% for gym in gyms %}
   	<tr>
-		<form method="POST" action="{{ url_for('gym_add', id=gym.id) }}">
 			<td></td>
 			<td>{{ gym.name }}</td>
-			<td><input type="submit" class="btn btn-primary" value="Add"/></td>
+			<td>
+				
+		<form method="POST" action="{{ url_for('gym_add', id=gym.id) }}">
+				<input type="submit" class="btn btn-primary" value="Add"/>
 		</form>
-
-
+			
+			</td>
+		
 	</tr>
   	{% endfor %}
 	<tr>
 	  <form method="POST" action="{{ url_for('gym_create') }}">
 
 			<td>{{ form2.name.label }}</td>
-			<td>{{ form2.name }}</td>
+			<td>{{ form2.name(class_="form-control") }}</td>
 		  	<ul>{% for error in form2.name.errors %}
 	    			<li> {{error}} </li>
 	    		{% endfor %}

@@ -5,7 +5,7 @@ from wtforms import DateField, IntegerField, StringField, RadioField, BooleanFie
 class LiftForm(FlaskForm):
     lifts = RadioField(choices=[('bench', 'Benchpress'), ('squat', 'Squat'), ('dead', 'Deadlift')])
     weight = IntegerField("Weight", [validators.NumberRange(min=1, max=1000)])
-    date = DateField("Date", format='%d.%m.%Y')
+    date = DateField("Date", format='%Y-%m-%d')
     public = BooleanField('Public')
 
     class Meta:
