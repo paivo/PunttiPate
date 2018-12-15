@@ -22,7 +22,7 @@
 		{% endfor %}
 		<ul>
 		{% for error in form.lifts.errors %}
-			<li>{{ error }}</li>
+			<li style="color:red;">{{ error }}</li>
 		{% endfor %}
 		</ul>
 	<td><br>
@@ -34,7 +34,7 @@
 	<td>
 	  <ul>
 	    {% for error in form.weight.errors %}
-	    <li>{{ error }}</li>
+	    <li style="color:red;">{{ error }}</li>
 	    {% endfor %}
 	  </ul>
 	</td>
@@ -49,7 +49,7 @@
 	<td>
 	  <ul>
 	    {% for error in form.date.errors %}
-	    <li> Insert date in form dd/mm/yyyy </li>
+	    <li style="color:red;"> Insert a date </li>
 	    {% endfor %}
 	  </ul>
 	  </tr>
@@ -79,7 +79,7 @@
 		Add a new Gym
   </h3>
 
-	{{ errormessage }}
+  <p style="color:red;"> {{ errormessage }} </p>
 
 	<table>
   	<tr>
@@ -107,7 +107,7 @@
 			<td>{{ form2.name.label }}</td>
 			<td>{{ form2.name(class_="form-control") }}</td>
 		  	<ul>{% for error in form2.name.errors %}
-	    			<li> {{error}} </li>
+	    			<li style="color:red;"> {{error}} </li>
 	    		{% endfor %}
 			</ul>
 			  <td><input type="submit" class="btn btn-primary" value="Add"/></td>

@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block body %}
-{{ error }}
+<p  style="color:red;"> {{ error }} </p>
 <h4>
     Register
 </h4>
@@ -17,7 +17,7 @@
         </td>
       </tr>
       {% for error in form.name.errors %}
-			<li>{{ error }}</li>
+			<li style="color:red;">{{ error }}</li>
 		{% endfor %}
 
     <tr>
@@ -29,7 +29,7 @@
       </td>
     </tr>
     {% for error in form.username.errors %}
-			<li>{{ error }}</li>
+			<li style="color:red;">{{ error }}</li>
 		{% endfor %}
 
     <tr>
@@ -41,7 +41,7 @@
       </td>
     </tr>
     {% for error in form.password.errors %}
-			<li>{{ error }}</li>
+			<li style="color:red;">{{ error }}</li>
 		{% endfor %}
       <tr>
       <td>
@@ -52,7 +52,7 @@
       </td>
     </tr>
     {% for error in form.confirm.errors %}
-			<li>{{ error }}</li>
+			<li style="color:red;">{{ error }}</li>
 		{% endfor %}
 
     <tr>

@@ -5,7 +5,7 @@ from application.lift.models import Bench, Squat, Dead, Gym, GymUser
 from application.lift.forms import LiftForm, GymForm
 
 
-## Luodaan gym tietokohde jos saman nimistä ei jo ole. Liitetään kyseinen gym käyttäjään.
+## Luodaan gym tietokohde jos saman nimistä ei jo ole. Liitetään molemmissa tapauksissa kyseinen gym käyttäjään.
 @app.route("/gym/create/", methods=["POST"])
 @login_required(role="ANY")
 def gym_create():
@@ -19,14 +19,8 @@ def gym_create():
         gym = Gym(form2.name.data)
         db.session().add(gym)
         db.session().commit()
-    else:
-        gym_id = int(Gym.find_one(gym_name)[0])
 
-    gym_user = GymUser(gym_id, current_user.id)
-    db.session().add(gym_user)
-    db.session().commit()
-
-    return redirect(url_for("bench_index"))
+    return gym_add(Gym.find_one(gym_name)[0])
 
 
 ## Liitetään kyseinen gym käyttäjään.
@@ -38,7 +32,7 @@ def gym_add(id):
 
         if int(user["gym_id"]) == int(id) and int(user["account_id"]) == int(current_user.id):
             return render_template("lift/new.html", form=LiftForm(), form2=GymForm(), gyms=Gym.find_all(),
-                              errormessage="You have already added this one.")
+                                    errormessage="You have already added this one.")
 
     gym_user = GymUser(id, current_user.id)
     db.session().add(gym_user)
