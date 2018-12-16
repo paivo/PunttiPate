@@ -18,13 +18,13 @@
         {% if current_user.is_authenticated %}
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('bench_index') }}">My Lifts</a>
+              <a class="nav-link" href="{{ url_for('bench_index') }}">Lifts</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('gym_index') }}">My Gyms</a>
+              <a class="nav-link" href="{{ url_for('gym_index') }}">Gyms</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('bench_form') }}">Add a Lift</a>
+              <a class="nav-link" href="{{ url_for('bench_form') }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;New Lift or Gym</a>
             </li>
           </ul>
         {% endif %}

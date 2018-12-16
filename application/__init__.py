@@ -63,8 +63,8 @@ def login_required(role="ANY"):
 # load application content
 from application import views
 
-from application.tasks import models
-from application.tasks import views
+from application.gym import models
+from application.gym import views
 
 from application.lift import models
 from application.lift import views

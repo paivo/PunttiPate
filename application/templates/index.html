@@ -75,6 +75,22 @@
     {% endfor %}
     </table>
 
+    <br>
+    <table class="table table-success">
+        <h4>
+            Top 3 Gyms
+        </h4>
+        <tr>
+            <th>Name&nbsp; &nbsp;</th>
+            <th>Lifters&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;</th>
+        </tr>
+        {% for gym in gyms %}
+        <tr>
+            <td>{{ gym.name }}</td>
+            <td>{{ gym.count }}</td>
+        </tr>
+        {% endfor %}
+    </table>
 
 
 {% endblock %}
