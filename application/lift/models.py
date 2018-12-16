@@ -3,7 +3,7 @@ from application.models import Lift, Base
 from sqlalchemy.sql import text
 from flask_login import current_user
 import os
-from operator import itemgetter, attrgetter
+from operator import itemgetter
 
 
 class Gym(Base):
@@ -12,7 +12,7 @@ class Gym(Base):
     def __init__(self, name):
         self.name = name
 
-    ## Tietokannasta tietty sali id nimen perusteella.
+    # Tietokannasta tietty sali id nimen perusteella.
     @staticmethod
     def find_one(name):
         stmt = text("SELECT Gym.id FROM Gym "
@@ -24,7 +24,7 @@ class Gym(Base):
 
         return response
 
-    ## Kaikki salit. Id ja salin nimi.
+    # Kaikki salit. Id ja salin nimi.
     @staticmethod
     def find_all():
         stmt = text("SELECT Gym.id, Gym.name FROM Gym "
@@ -37,7 +37,7 @@ class Gym(Base):
 
         return response
 
-    ## Kaikki salit. Id ja salin nimi.
+    # Kaikki salien nimet.
     @staticmethod
     def find_all_names():
         stmt = text("SELECT Gym.name FROM Gym "
@@ -50,19 +50,35 @@ class Gym(Base):
 
         return response
 
-    ## Käyttäjä kohtaiset salit. Id ja salin nimi.
+    # Käyttäjä kohtaiset salit. Id ja salin nimi.
     @staticmethod
     def find_gyms():
         stmt = text("SELECT Gym.id, Gym.name FROM Gym, Gym_User, Account "
                     "WHERE Account.id = :id "
                     "AND Account.id = Gym_User.account_id "
-                    "Gym_User.gym_id = Gym.id "
+                    "AND Gym_User.gym_id = Gym.id "
                     "ORDER BY Gym.name").params(id=current_user.id)
         res = db.engine.execute(stmt)
 
         response = []
         for row in res:
             response.append({"id": row[0], "name": row[1]})
+
+        return response
+
+    # Käyttäjä kohtaiset salit. Id, salin nimi ja milloin yhdistetty käyttäjään.
+    @staticmethod
+    def find_gyms_joined():
+        stmt = text("SELECT Gym.id, Gym.name, Gym_User.date_created FROM Gym, Gym_User, Account "
+                    "WHERE Account.id = :id "
+                    "AND Account.id = Gym_User.account_id "
+                    "AND Gym_User.gym_id = Gym.id "
+                    "ORDER BY Gym_User.date_created DESC").params(id=current_user.id)
+        res = db.engine.execute(stmt)
+
+        response = []
+        for row in res:
+            response.append({"id": row[0], "name": row[1], "date_created": row[2]})
 
         return response
 
@@ -75,7 +91,7 @@ class GymUser(Base):
         self.gym_id = gym_id
         self.account_id = account_id
 
-    ## Kaikki yhditetyt gym ja user id:t
+    # Kaikki yhdistetyt gym ja user id:t
     @staticmethod
     def find_all():
         stmt = text("SELECT Gym_User.gym_id, Gym_User.account_id FROM Gym_User")
@@ -87,6 +103,13 @@ class GymUser(Base):
 
         return response
 
+    # Poistetaan tietty yhteys käyttäjän ja gymin välillä.
+    @staticmethod
+    def delete(gym_id):
+        stmt = text("DELETE FROM Gym_User WHERE gym_id = :gym_id AND account_id = :id"
+                    ).params(gym_id=gym_id, id=current_user.id)
+        db.engine.execute(stmt)
+
 
 class Bench(Lift):
 
@@ -97,7 +120,7 @@ class Bench(Lift):
         self.date = date
         self.public = public
 
-    ## Käyttäjäkohtaiset penkkitulokset tulostettavassa muodossa.
+    # Käyttäjäkohtaiset penkkitulokset tulostettavassa muodossa.
     @staticmethod
     def find_lifts():
         stmt = text("SELECT Bench.weight, Bench.date, Bench.public, Bench.id FROM Bench"
@@ -114,7 +137,7 @@ class Bench(Lift):
 
         return response
 
-    ## Paras julkinen penkki tulos per käyttäjä.
+    # Paras julkinen penkki tulos per käyttäjä.
     @staticmethod
     def find_best():
 
@@ -150,7 +173,7 @@ class Squat(Lift):
         self.date = date
         self.public = public
 
-    ## Käyttäjäkohtaiset kyykkytulokset tulostettavassa muodossa.
+    # Käyttäjäkohtaiset kyykkytulokset tulostettavassa muodossa.
     @staticmethod
     def find_lifts():
         stmt = text("SELECT Squat.weight, Squat.date, Squat.public, Squat.id FROM Squat"
@@ -168,7 +191,7 @@ class Squat(Lift):
         return response
 
 
-    ## Paras julkinen kyykky tulos per käyttäjä
+    # Paras julkinen kyykky tulos per käyttäjä
     @staticmethod
     def find_best():
         if os.environ.get("HEROKU"):
@@ -201,7 +224,7 @@ class Dead(Lift):
         self.date = date
         self.public = public
 
-    ## Käyttäjäkohtaiset penkkitulokset tulostettavassa muodossa.
+    # Käyttäjäkohtaiset penkkitulokset tulostettavassa muodossa.
     @staticmethod
     def find_lifts():
         stmt = text("SELECT Dead.weight, Dead.date, Dead.public, Dead.id FROM Dead"
@@ -218,7 +241,7 @@ class Dead(Lift):
 
         return response
 
-    ## Paras julkinen maastaveto tulos per käyttäjä
+    # Paras julkinen maastaveto tulos per käyttäjä
     @staticmethod
     def find_best():
         if os.environ.get("HEROKU"):

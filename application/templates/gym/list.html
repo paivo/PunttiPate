@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+
+{% block body %}
+  <h2>
+    {{current_user.name}}s Gyms
+  </h2>
+
+  <br>
+  <table class="table">
+
+    <tr>
+      <th>Gym</th>
+      <th>Joined</th>
+      <th>Delete</th>
+      <th>Edit</th>
+    </tr>
+    {% for gym in gyms %}
+    <tr>
+      <td>{{ gym.name }}</td>
+      <td>{{ gym.date_created }}</td>
+      <td>
+        <form method="POST" action="{{ url_for('gym_remove', gym_id=gym.id) }}">
+	      <input type="submit" class="btn btn-danger" value="X"/>
+	    </form>
+      </td>
+      <td>
+        <form method="GET" action="{{ url_for('gym_edit', gym_id=gym.id) }}">
+	      <input type="submit" class="btn btn-secondary" value=">">
+	    </form>
+      </td>
+    </tr>
+    {% endfor %}
+    </table>
+{% endblock %}

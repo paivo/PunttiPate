@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    {% if lift_type == "bench" %}
+        <h4> Benchpress </h4>
+    {% elif lift_type == "squat" %}
+        <h4> Squat </h4>
+    {% else %}
+        <h4> Deadlift </h4>
+    {% endif %}
+
+  <table class="table">
+
+    <tr>
+      <th>Weight</th>
+      <th>Date</th>
+      <th>Public</th>
+      <th>Delete</th>
+      <th>Lifter</th>
+    </tr>
+    <tr>
+      <td>{{ lift.weight }}</td>
+      <td>{{ lift.date }}</td>
+      <td>
+        <form method="POST" action="{{ url_for('bench_change_single', lift_id=lift.id, lift_type=lift_type) }}">
+	      <input type="submit" class="btn btn-info" value="{{ lift.public }}">
+	    </form>
+      </td>
+      <td>
+        <form method="POST" action="{{ url_for('bench_delete', lift_id=lift.id, lift_type=lift_type) }}">
+	      <input type="submit" class="btn btn-danger" value="X"/>
+	    </form>
+      </td>
+      <td>{{current_user.name}}</td>
+    </tr>
+    </table>
+{% endblock %}

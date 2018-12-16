@@ -76,7 +76,7 @@
 
 	<br>
   <h3>
-		Add a new Gym
+		Join a new Gym
   </h3>
 
   <p style="color:red;"> {{ errormessage }} </p>
@@ -93,7 +93,7 @@
 			<td>{{ gym.name }}</td>
 			<td>
 				
-		<form method="POST" action="{{ url_for('gym_add', id=gym.id) }}">
+		<form method="POST" action="{{ url_for('gym_add', gym_id=gym.id) }}">
 				<input type="submit" class="btn btn-primary" value="Add"/>
 		</form>
 			

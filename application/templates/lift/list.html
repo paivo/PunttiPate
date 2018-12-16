@@ -19,19 +19,25 @@
       <th>Date</th>
       <th>Public</th>
       <th>Delete</th>
+      <th>View</th>
     </tr>
     {% for bench in benches %}
     <tr>
       <td>{{ bench.weight }}</td>
       <td>{{ bench.date }}</td>
       <td>
-        <form method="POST" action="{{ url_for('bench_change', id=bench.id, public=bench.public, lift_type='bench') }}">
+        <form method="POST" action="{{ url_for('bench_change', lift_id=bench.id, lift_type='bench') }}">
 	      <input type="submit" class="btn btn-info" value="{{ bench.public }}">
 	    </form>
       </td>
       <td>
-        <form method="POST" action="{{ url_for('bench_delete', id=bench.id, lift_type='bench') }}">
+        <form method="POST" action="{{ url_for('bench_delete', lift_id=bench.id, lift_type='bench') }}">
 	      <input type="submit" class="btn btn-danger" value="X"/>
+	    </form>
+      </td>
+      <td>
+        <form method="POST" action="{{ url_for('bench_view', lift_id=bench.id, lift_type='bench') }}">
+	      <input type="submit" class="btn btn-secondary" value=">">
 	    </form>
       </td>
     </tr>
@@ -47,20 +53,26 @@
       <th>Date</th>
       <th>Public</th>
       <th>Delete</th>
+      <th>View</th>
     </tr>
     {% for squat in squats %}
     <tr>
       <td>{{ squat.weight }}</td>
       <td>{{ squat.date }}</td>
       <td>
-        <form method="POST" action="{{ url_for('bench_change', id=squat.id, public=squat.public, lift_type='squat') }}">
+        <form method="POST" action="{{ url_for('bench_change', lift_id=squat.id, lift_type='squat') }}">
 	      <input type="submit" class="btn btn-info" value="{{ squat.public }}">
 	    </form>
       </td>
 
       <td>
-        <form method="POST" action="{{ url_for('bench_delete', id=squat.id, lift_type='squat') }}">
+        <form method="POST" action="{{ url_for('bench_delete', lift_id=squat.id, lift_type='squat') }}">
 	      <input type="submit" class="btn btn-danger" value="X"/>
+	    </form>
+      </td>
+      <td>
+        <form method="POST" action="{{ url_for('bench_view', lift_id=squat.id, lift_type='squat') }}">
+	      <input type="submit" class="btn btn-secondary" value=">">
 	    </form>
       </td>
     </tr>
@@ -76,21 +88,27 @@
       <th>Date</th>
       <th>Public</th>
       <th>Delete</th>
+      <th>View</th>
     </tr>
     {% for dead in deads %}
     <tr>
       <td>{{ dead.weight }}</td>
       <td>{{ dead.date }}</td>
       <td>
-        <form method="POST" action="{{ url_for('bench_change', id=dead.id, public=dead.public, lift_type='dead') }}">
+        <form method="POST" action="{{ url_for('bench_change', lift_id=dead.id, lift_type='dead') }}">
 	      <input type="submit" class="btn btn-info" value="{{ dead.public }}">
 	    </form>
       </td>
-    <td>
-    <form method="POST" action="{{ url_for('bench_delete', id=dead.id, lift_type='dead') }}">
-	    <input type="submit" class="btn btn-danger" value="X"/>
-	  </form>
-    </td>
+      <td>
+        <form method="POST" action="{{ url_for('bench_delete', lift_id=dead.id, lift_type='dead') }}">
+	      <input type="submit" class="btn btn-danger" value="X"/>
+	    </form>
+      </td>
+      <td>
+        <form method="POST" action="{{ url_for('bench_view', lift_id=dead.id, lift_type='dead') }}">
+	      <input type="submit" class="btn btn-secondary" value=">">
+	    </form>
+      </td>
     </tr>
     {% endfor %}
     </table>

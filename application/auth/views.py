@@ -6,7 +6,7 @@ from application.auth.models import User
 from application.auth.forms import LoginForm, SignupForm
 
 
-## Kirjautuminen
+# Kirjautuminen
 @app.route("/auth/login", methods = ["GET", "POST"])
 def auth_login():
     if request.method == "GET":
@@ -17,20 +17,20 @@ def auth_login():
     user = User.query.filter_by(username=form.username.data, password=form.password.data).first()
     if not user:
         return render_template("auth/loginform.html", form = form,
-                                error = "No such username or password")
+                                error="No such username or password")
 
     login_user(user)
     return redirect(url_for("index"))   
 
 
-## Uloskirjautuminen
+# Uloskirjautuminen
 @app.route("/auth/logout")
 def auth_logout():
     logout_user()
-    return redirect(url_for("index"))     
+    return redirect(url_for("index"))
 
 
-## Rekisteröityminen
+# Rekisteröityminen
 @app.route("/auth/signup", methods = ["GET", "POST"])
 def auth_signup():
     if request.method == "GET":

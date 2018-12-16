@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{% block body %}
+  <h2>
+    Change the name of: {{ gym.name }}
+  </h2><br>
+    <tr>
+        <th>{{ form.name.label }}</th>
+        <th></th>
+    </tr>
+
+
+
+  <form method="POST" action="{{ url_for('gym_edit', gym_id=gym.id) }}">
+
+			<td>{{ form.name(class_="form-control") }}</td>
+		  	<ul>{% for error in form.name.errors %}
+	    			<li style="color:red;"> {{error}} </li>
+	    		{% endfor %}
+			</ul>
+			  <td><input type="submit" class="btn btn-primary" value="Change"/></td>
+
+	  </form>
+{% endblock %}
