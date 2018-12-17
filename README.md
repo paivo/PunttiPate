@@ -10,8 +10,11 @@ Käyttäjänimi: hello
 Salasana: world
 
 [Taulut ja SQL kyselyt](https://github.com/paivo/PunttiPate/blob/master/documentation/tables_and_sql_statements.txt)
+
 [Tietokantakaavio](https://github.com/paivo/PunttiPate/blob/master/documentation/Tietokantakaavio.png)
+
 [Käyttötapaukset](https://github.com/paivo/PunttiPate/blob/master/documentation/userstory.md)
+
 Ennen ohjelman asentamista tarvitset:
 [Työvälineet ja niiden asentaminen](https://materiaalit.github.io/tsoha-18/tyovalineet/)
 
@@ -27,7 +30,6 @@ Asennus- ja käynnistämisohje paikallisesti:
 9. Avaa selain ja aseta osoitteeksi: http://localhost:5000/
 
 Asennus- ja käynnistämisohje Herokussa:
-
-Neljä ensimmäistä kohtaa ovat samat kuin paikallisesti käynnistäessä.
+1.-4. Ylemmästä ohjeesta.
 5. Luodaan sovellukselle tietokanta Herokuun: heroku addons:add heroku-postgresql:hobby-dev
 6. Pusketaan sovellus herokuun: git push heroku master
