@@ -8,7 +8,7 @@ class User(Base):
 
     name = db.Column(db.String(144), nullable=False)
     username = db.Column(db.String(144), nullable=False)
-    password = db.Column(db.String(144), nullable=False)
+    password = db.Column(db.Binary(72), nullable=False)
 
     def __init__(self, name):
         self.name = name

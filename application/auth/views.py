@@ -1,7 +1,7 @@
 from flask import render_template, request, redirect, url_for
 from flask_login import login_user, logout_user
   
-from application import app, db
+from application import app, db, bcrypt
 from application.auth.models import User
 from application.auth.forms import LoginForm, SignupForm
 
@@ -14,10 +14,10 @@ def auth_login():
 
     form = LoginForm(request.form)
 
-    user = User.query.filter_by(username=form.username.data, password=form.password.data).first()
-    if not user:
-        return render_template("auth/loginform.html", form = form,
-                                error="No such username or password")
+    user = User.query.filter_by(username=form.username.data).first()
+
+    if user is None or not bcrypt.check_password_hash(user.password, form.password.data):
+        return render_template("auth/loginform.html", form=form, error="No such username or password")
 
     login_user(user)
     return redirect(url_for("index"))   
@@ -48,9 +48,11 @@ def auth_signup():
     if form.password.data != form.confirm.data:
         return render_template("auth/signupform.html", form=form, error="Passwords do not match.")
 
+    password_hash = bcrypt.generate_password_hash(form.password.data)
+
     user = User(form.name.data)
     user.username = form.username.data
-    user.password = form.password.data
+    user.password = password_hash
 
     db.session().add(user)
     db.session().commit()
