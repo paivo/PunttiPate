@@ -1,0 +1,100 @@
+SQL TAULUT:
+
+CREATE TABLE account (
+	id INTEGER NOT NULL, 
+	date_created DATETIME, 
+	date_modified DATETIME, 
+	name VARCHAR(144) NOT NULL, 
+	username VARCHAR(144) NOT NULL, 
+	password BLOB NOT NULL, 
+	PRIMARY KEY (id)
+)
+CREATE TABLE gym_user (
+	id INTEGER NOT NULL, 
+	date_created DATETIME, 
+	date_modified DATETIME, 
+	gym_id INTEGER NOT NULL, 
+	account_id INTEGER NOT NULL, 
+	PRIMARY KEY (id), 
+	FOREIGN KEY(gym_id) REFERENCES gym (id), 
+	FOREIGN KEY(account_id) REFERENCES account (id)
+)
+CREATE TABLE gym (
+	id INTEGER NOT NULL, 
+	date_created DATETIME, 
+	date_modified DATETIME, 
+	name VARCHAR NOT NULL, 
+	PRIMARY KEY (id)
+)
+CREATE TABLE bench (
+	id INTEGER NOT NULL, 
+	date_created DATETIME, 
+	date_modified DATETIME, 
+	weight INTEGER NOT NULL, 
+	date DATE NOT NULL, 
+	public BOOLEAN NOT NULL, 
+	account_id INTEGER NOT NULL, 
+	PRIMARY KEY (id), 
+	CHECK (public IN (0, 1)), 
+	FOREIGN KEY(account_id) REFERENCES account (id)
+)
+CREATE TABLE squat (
+	id INTEGER NOT NULL, 
+	date_created DATETIME, 
+	date_modified DATETIME, 
+	weight INTEGER NOT NULL, 
+	date DATE NOT NULL, 
+	public BOOLEAN NOT NULL, 
+	account_id INTEGER NOT NULL, 
+	PRIMARY KEY (id), 
+	CHECK (public IN (0, 1)), 
+	FOREIGN KEY(account_id) REFERENCES account (id)
+)
+CREATE TABLE dead (
+	id INTEGER NOT NULL, 
+	date_created DATETIME, 
+	date_modified DATETIME, 
+	weight INTEGER NOT NULL, 
+	date DATE NOT NULL, 
+	public BOOLEAN NOT NULL, 
+	account_id INTEGER NOT NULL, 
+	PRIMARY KEY (id), 
+	CHECK (public IN (0, 1)), 
+	FOREIGN KEY(account_id) REFERENCES account (id)
+)
+
+KIINNOSTAVIMMAT SQL KYSELYT:
+
+# Paras julkinen penkki tulos per käyttäjä.
+HEROKU:
+SELECT DISTINCT ON (Account.username) Bench.weight, Bench.date, Account.username 
+FROM Bench, Account 
+WHERE Bench.weight = ( SELECT MAX(Bench.weight) FROM Bench 
+WHERE Bench.public = '1' AND Bench.account_id = Account.id )
+
+# Paras julkinen penkki tulos per käyttäjä.
+SQLITE:
+SELECT MAX(Bench.weight), Bench.date, Account.username FROM Bench, Account 
+WHERE Account.id = Bench.account_id AND Bench.public = '1' 
+GROUP BY ( Account.username ) 
+ORDER BY ( Bench.weight ) DESC LIMIT 30")
+
+# Käyttäjäkohtaiset penkkitulokset tulostettavassa muodossa.
+SELECT Bench.weight, Bench.date, Bench.public, Bench.id FROM Bench 
+WHERE Bench.account_id = :id 
+ORDER BY Bench.weight DESC
+
+# Kolme suosituinta salia
+SELECT Gym.name, COUNT(Account.name) FROM Gym, Gym_User, Account 
+WHERE Account.id = Gym_User.account_id 
+AND Gym_User.gym_id=Gym.id 
+GROUP BY Gym.name 
+ORDER BY COUNT(Account.name) DESC LIMIT 3
+
+# Käyttäjä kohtaiset salit. Id, salin nimi ja milloin yhdistetty käyttäjään.
+SELECT Gym.id, Gym.name, Gym_User.date_created 
+FROM Gym, Gym_User, Account 
+WHERE Account.id = :id 
+AND Account.id = Gym_User.account_id 
+AND Gym_User.gym_id = Gym.id 
+ORDER BY Gym_User.date_created DESC
